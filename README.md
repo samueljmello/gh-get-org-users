@@ -1,4 +1,4 @@
-# gh-get-org-users
+# Get All Organization Users Using GitHub CLI
 Quick &amp; dirty bash script that utilizes GitHub CLI to get users from organizations.
 
 ## About
