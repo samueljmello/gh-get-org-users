@@ -77,7 +77,7 @@ elif [ ! -f "${IMPORT_FILE}" ]; then
 fi
 
 # make sure they want to proceed
-read -p "Are you sure you want to delete all the repositories listed in the import file? " -n 1 -r
+read -p "Are you sure you want to delete all the repositories listed in the import file? Enter 'y' to proceed." -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]; then
 
