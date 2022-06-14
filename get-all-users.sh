@@ -89,6 +89,9 @@ fi
 # create file
 touch ${EXPORT_FILE}
 
+# create header
+echo "org,user,email" >> ${EXPORT_FILE};
+
 while read ORG; do
 
     echo "Getting users for ${ORG}...";
@@ -146,8 +149,12 @@ while read ORG; do
 
         debug "Query result: ${RESULT}";
 
-        # get each uer detail
-        echo "${RESULT}" | jq -r '.data.organization.teams.nodes[].members.edges[].node | if .email == "" then .login + ",<unknown>" else .login + "," + .email end' \
+        # store condition for debugging
+        CONDITION="if .email == \"\" then \"${ORG},\" + .login + \",<unknown>\" else \"${ORG},\" + .login + \",\" + .email end";
+        debug "Using condition: '${CONDITION}'";
+
+        # get each user detail
+        echo "${RESULT}" | jq -r ".data.organization.teams.nodes[].members.edges[].node | ${CONDITION}" \
             >> ${EXPORT_FILE};
 
         # stop loop if there's another page
